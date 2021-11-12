@@ -1,0 +1,126 @@
+package Domain;
+
+import java.text.DecimalFormat;
+
+/**
+ * declare global var
+ */
+public class ItemToPurchase {
+    private String itemName;
+    private double itemPrice;
+    private int itemQuantity;
+    private String itemDescription;
+
+    /**
+     * create constructor
+     *
+     * @param itemName
+     * @param itemPrice
+     * @param itemQuantity
+     * @param itemDescription
+     */
+    public ItemToPurchase(String itemName, double itemPrice, int itemQuantity, String itemDescription) {
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.itemQuantity = itemQuantity;
+        this.itemDescription = itemDescription;
+    }
+
+    /**
+     * initialize constructor
+     */
+    public ItemToPurchase() {
+        this.itemName = "";
+        this.itemPrice = 0.00;
+        this.itemQuantity = 0;
+        this.itemDescription = "";
+    }
+
+    /**
+     * get the name
+     *
+     * @return
+     */
+    public String getItemName() {
+        return itemName;
+    }
+
+    /**
+     * set the name
+     *
+     * @param itemName
+     */
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    /**
+     * get the price
+     *
+     * @return
+     */
+    public double getItemPrice() {
+        return itemPrice;
+    }
+
+    /**
+     * set the price
+     *
+     * @param itemPrice
+     */
+    public void setItemPrice(double itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
+    /**
+     * get the item quantity
+     *
+     * @return
+     */
+    public int getItemQuantity() {
+        return itemQuantity;
+    }
+
+    /**
+     * set item quantity
+     *
+     * @param itemQuantity
+     */
+    public void setItemQuantity(int itemQuantity) {
+        this.itemQuantity = itemQuantity;
+    }
+
+    /**
+     * get item description
+     *
+     * @return
+     */
+    public String getItemDescription() {
+        return itemDescription;
+    }
+
+    /**
+     * set the item description
+     *
+     * @param itemDescription
+     */
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
+    }
+
+    /**
+     * print the item name, quantity, price and total of the quantity * price
+     */
+    public void printItemCost() {
+        DecimalFormat df = new DecimalFormat("#");
+        double subtotal = itemQuantity * itemPrice;
+        System.out.println(itemName + " " + itemQuantity + " @ " + "$" + df.format(itemPrice) + " = $" + df.format(subtotal));
+    }
+
+    /**
+     * print the description per item in arraylist
+     */
+    public void printItemDescription() {
+        System.out.println(itemName + ": " + itemDescription);
+    }
+}
