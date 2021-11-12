@@ -1,0 +1,165 @@
+package Domain;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
+/**
+ * declare global variables
+ */
+public class ShoppingCart {
+    private String customerName;
+    private String currentDate;
+    private ArrayList<ItemToPurchase> cartItems;
+
+    /**
+     * make the constructors and initialize an empty ArrayList
+     *
+     * @param customerName
+     * @param currentDate
+     */
+    public ShoppingCart(String customerName, String currentDate) {
+        this.customerName = customerName;
+        this.currentDate = currentDate;
+        cartItems = new ArrayList<ItemToPurchase>();
+    }
+
+    /**
+     * Initialize the constructor
+     */
+    public ShoppingCart() {
+        this.customerName = "none";
+        this.currentDate = "January 1, 2021";
+        cartItems = new ArrayList<ItemToPurchase>();
+    }
+
+    /**
+     * get the customers name
+     *
+     * @return
+     */
+    public String getCustomerName() {
+        return this.customerName;
+    }
+
+    /**
+     * get the date
+     *
+     * @return
+     */
+    public String getDate() {
+        return this.currentDate;
+    }
+
+    /**
+     * add the item to the ArrayList
+     *
+     * @param anItem
+     */
+    public void addItem(ItemToPurchase anItem) {
+        cartItems.add(anItem);
+    }
+
+    /**
+     * remove the item if the item name from parameter is the same as the ArrayList name
+     * if not it will print nothing is removed
+     *
+     * @param itemName
+     */
+    public void removeItem(String itemName) {
+        for (int i = 0; i < cartItems.size(); i++) {
+            if (cartItems.get(i).getItemName().equalsIgnoreCase(itemName)) {
+                cartItems.remove(i);
+                System.out.println("ITEM REMOVED");
+            } else {
+                System.out.println("Item not found in cart. Nothing removed.");
+            }
+        }
+    }
+
+    /**
+     * modify the quantity of item in the cartItem object array if the cartItem name is the same
+     * as the parameter
+     * if not print nothing modified
+     *
+     * @param anItem
+     */
+    public void modifyItem(ItemToPurchase anItem) {
+        for (ItemToPurchase cartItem : cartItems) {
+            if (cartItem.getItemName().equalsIgnoreCase(anItem.getItemName())) {
+                cartItem.setItemQuantity(anItem.getItemQuantity());
+            } else {
+                System.out.println("Item not found in cart. Nothing modified");
+            }
+        }
+    }
+
+    /**
+     * add the quantity of items in the cartItem to the totalQuantity then
+     * return it.
+     *
+     * @return
+     */
+    public int getNumItemsInCart() {
+        int totalQuantity = 0;
+        for (ItemToPurchase cartItem : cartItems) {
+            totalQuantity += cartItem.getItemQuantity();
+        }
+        return totalQuantity;
+    }
+
+    /**
+     * put the quantity of item in the variable as well as the price
+     * multiply the amount and put it in the totalCost
+     * return totalCost
+     *
+     * @return
+     */
+    public double getCostOfCart() {
+        double costOfItem = 0;
+        int quantity = 0;
+        double totalCost = 0;
+
+        for (ItemToPurchase cartItem : cartItems) {
+            quantity = cartItem.getItemQuantity();
+            costOfItem = cartItem.getItemPrice();
+            totalCost += quantity * costOfItem;
+        }
+
+        return totalCost;
+    }
+
+    /**
+     * This will print the name and date then the number of items in the cart
+     * if there is no item in the cart, print out cart empty
+     * else it will print the item cost per item in the arraylist
+     */
+    public void printTotal() {
+        DecimalFormat df = new DecimalFormat("#");
+        System.out.println(customerName + "'s Shopping Cart - " + currentDate);
+        System.out.println("Number of Items: " + getNumItemsInCart() + "\n");
+
+        if (getNumItemsInCart() == 0) {
+            System.out.println("SHOPPING CART IS EMPTY");
+        } else {
+            for (ItemToPurchase cartItem : cartItems) {
+                cartItem.printItemCost();
+            }
+        }
+
+        System.out.println("\n" + "Total: $" + df.format(getCostOfCart()) + "\n");
+    }
+
+    /**
+     * this will print the name and date along with every description per item in arraylist
+     */
+    public void printDescriptions() {
+        System.out.println();
+        System.out.println(customerName + "'s Shopping Cart - " + currentDate + "\n");
+        System.out.println("Item Descriptions");
+
+        for (ItemToPurchase cartItem : cartItems) {
+            cartItem.printItemDescription();
+        }
+        System.out.println();
+    }
+}
